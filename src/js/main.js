@@ -5,13 +5,14 @@
 const searchButton = document.querySelector('.js_search');
 const searchInput = document.querySelector('.js_searchInput');
 const listCocktails = document.querySelector('.js_listCocktails');
+const favCocktails = document.querySelector('.js_favCocktails');
 
 let cocktailData = [];
 let favData = [];
 
 // FUNCTIONS //
 
-/* FAVORITES */
+/* SELECT FAVORITES */
 function clickFav(event) {
   const idDrinkSelected = event.currentTarget.id;
   const favFound = cocktailData.find((fav) => {
@@ -26,6 +27,24 @@ function clickFav(event) {
   } else {
     favData.splice(favFoundIndex, 1);
   }
+  paintFavorites();
+}
+
+/* PAINT FAVORITES */
+function paintFavorites() {
+  let html = '';
+  for (const fav of favData) {
+    html += `<li class="js_favLi" id=${fav.idDrink}">`;
+    html += `<h3>${fav.strDrink}</h3>`;
+    /* Fill image */
+    if (fav.strDrinkThumb === null) {
+      html += `<img src="https://img.freepik.com/vector-gratis/coctel-dibujo-mano-rodaja-limon-romero_218179-270.jpg?w=100" width="100"/>`;
+    } else {
+      html += `<img src="${fav.strDrinkThumb}" width="100"/>`;
+    }
+    html += `</li>`;
+  }
+  favCocktails.innerHTML = html;
 }
 
 /* SELECT COCKTAILS + CLICK EVENT */
@@ -52,6 +71,7 @@ function paintCocktails() {
   }
   listCocktails.innerHTML = html;
   selectCocktails();
+  // paintFavorites();
 }
 
 /* GET API + FETCH */
