@@ -7,12 +7,16 @@ const searchInput = document.querySelector('.js_searchInput');
 const listCocktails = document.querySelector('.js_listCocktails');
 const favCocktails = document.querySelector('.js_favCocktails');
 
+// VARIABLES //
+
 let cocktailData = [];
 let favData = [];
+let classFav = '';
 
 // FUNCTIONS //
 
-/* SELECT FAVORITES */
+/* Mando los cócteles a la parte de favoritos y les añado una clase diferencial */
+/* ¡¡¡ NO FUNCIONA !!! */
 function clickFav(event) {
   const idDrinkSelected = event.currentTarget.id;
   const favFound = cocktailData.find((fav) => {
@@ -24,18 +28,24 @@ function clickFav(event) {
 
   if (favFoundIndex === -1) {
     favData.push(favFound);
-  } else {
+  } else if (favFoundIndex !== -1) {
+    classFav = 'favorites';
+  }
+  else {
     favData.splice(favFoundIndex, 1);
+    classFav = '';
   }
   paintFavorites();
 }
 
-/* PAINT FAVORITES */
+/* Pinto los cócteles que se clickan como favoritos en el HTML */
 function paintFavorites() {
   let html = '';
+
   for (const fav of favData) {
-    html += `<li class="js_favLi" id=${fav.idDrink}">`;
+    html += `<li class="js_favLi ${classFav}" id=${fav.idDrink}>`;
     html += `<h3>${fav.strDrink}</h3>`;
+
     /* Fill image */
     if (fav.strDrinkThumb === null) {
       html += `<img src="https://img.freepik.com/vector-gratis/coctel-dibujo-mano-rodaja-limon-romero_218179-270.jpg?w=100" width="100"/>`;
@@ -45,9 +55,10 @@ function paintFavorites() {
     html += `</li>`;
   }
   favCocktails.innerHTML = html;
+  selectCocktails();
 }
 
-/* SELECT COCKTAILS + CLICK EVENT */
+/* Escucho el evento click sobre cada cóctel clickado */
 function selectCocktails () {
   const favLi = document.querySelectorAll('.js_favLi');
   for (const itemLi of favLi) {
@@ -55,12 +66,14 @@ function selectCocktails () {
   }
 }
 
-/* PAINT COCKTAILS + FILL IMAGE */
+/* Pinto los cócteles según la búsqueda del input en el HTML */
 function paintCocktails() {
   let html = '';
+
   for (const drink of cocktailData) {
-    html += `<li class="js_favLi" id=${drink.idDrink}>`;
+    html += `<li class="js_favLi ${classFav}" id=${drink.idDrink}>`;
     html += `<h3>${drink.strDrink}</h3>`;
+
     /* Fill image */
     if (drink.strDrinkThumb === null) {
       html += `<img src="https://img.freepik.com/vector-gratis/coctel-dibujo-mano-rodaja-limon-romero_218179-270.jpg?w=100" width="100"/>`;
@@ -71,10 +84,9 @@ function paintCocktails() {
   }
   listCocktails.innerHTML = html;
   selectCocktails();
-  // paintFavorites();
 }
 
-/* GET API + FETCH */
+/* Cojo los datos del servidor para poder utilizarlos */
 function getApi() {
   const searchValue = searchInput.value;
   /* Fetch */
@@ -86,10 +98,10 @@ function getApi() {
     });
 }
 
-/* CARGAR TODOS AL INICIO DE LA PÁGINA */
+/* Si utilizo la función fuera se cargan todos los cócteles al inicio de la página */
 /*getApi();*/
 
-/* SEARCH HANDLER FUNCTION */
+/* Escucho el evento click sobre el botón de BUSCAR */
 function handleClickSearch(event) {
   event.preventDefault();
   getApi();
