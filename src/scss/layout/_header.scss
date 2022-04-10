@@ -1,0 +1,15 @@
+.header {
+    /* Position */
+    display: flex;
+    justify-content: center;
+    padding: 50px; 
+    /* Color */
+    background-color: $headMain;
+
+    &__headerTitle {
+        /* Position */
+        text-align: center;
+        /* Font */
+        font-family: $title;
+    }
+}

@@ -1,7 +1,35 @@
+// JS CLASS TO FAV COCKTAILS //
+
 .favorites {
     border: 5px dotted #fa8072; 
     background-color: #e7d5ba;
     color: #fa8072;
     font-family: Verdana, sans-serif;
     width: 10%;
+}
+
+// SECTION LISTS //
+
+.listsMain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__listDrinks {
+        padding-top: 20px;
+    }
+
+    &__favDrinks {
+        padding-top: 20px;
+    }
+}
+
+// UL //
+
+.ulLists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px; 
+    width: 50%;
+    list-style: none;
 }

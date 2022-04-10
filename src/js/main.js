@@ -40,13 +40,10 @@ function clickFav(event) {
   if (favFoundIndex === -1) {
     favData.push(favFound);
   }
-  /* Si lo encuentra, me lo elimina */
-  else {
-    favData.splice(favFoundIndex, 1);
-  }
   /* Añado las funciones de las UL para que les aplique esta función */
   paintCocktails();
   paintFavorites();
+  addLocal();
 }
 
 // PINTAR LOS CÓCTELES CLICKADOS COMO FAVORITOS EN HTML */
@@ -71,6 +68,7 @@ function paintFavorites() {
     }
     /* Añado la classFav para que me la vincule según la condicional */
     html += `<li class="js_favLi ${classFav}" id=${fav.idDrink}>`;
+    html += `<button>X</button>`;
     html += `<h3>${fav.strDrink}</h3>`;
 
     /* Condicional para la imagen */
@@ -86,8 +84,6 @@ function paintFavorites() {
   }
   /* Pinto el resultado en la UL seleccionada */
   favCocktails.innerHTML = html;
-  /* Lo añado para que vincule el evento click */
-  selectCocktails();
 }
 
 // IDENTIFICAR CADA LI //
@@ -142,6 +138,34 @@ function paintCocktails() {
   selectCocktails();
 }
 
+// ALMACENAMIENTO DE FAVORITOS EN LOCALSTORAGE //
+
+function addLocal() {
+  /* Transformo a string el array de favoritos */
+  const addFav = JSON.stringify(favData);
+  /* Lo añado al LS */
+  localStorage.setItem('favData', addFav);
+}
+
+// MOSTRAR FAVORITOS AL RECARGAR LA PÁGINA //
+
+function showLocal() {
+  const showFav = localStorage.getItem('favData');
+
+  /* Condicional */
+  /* Si no hay datos en LocalStorage no se hace nada */
+  if (showFav !== null) {
+    /* Si hay datos en LocalStorage */
+    /* Lo parseo a array y lo meto en la variable */
+    const arrayFav = JSON.parse(showFav);
+    favData = arrayFav;
+    /* Pinto de nuevo */
+    paintFavorites();
+  }
+}
+
+/* ¡PENDIENTE! */
+
 // COJO LOS DATOS DEL SERVIDOR PARA PODER UTILIZARLOS //
 
 function getApi() {
@@ -158,10 +182,6 @@ function getApi() {
     });
 }
 
-// ¿CARGAR AL INICIAR LA PÁGINA? //
-
-/*getApi();*/
-
 // FUNCIÓN MANEJADORA DEL BOTÓN //
 
 function handleClickSearch(event) {
@@ -174,3 +194,8 @@ function handleClickSearch(event) {
 
 /* Evento del BOTÓN de BUSCAR */
 searchButton.addEventListener('click', handleClickSearch);
+
+// AL ARRANCAR LA PÁGINA //
+
+/* Mostrar lo guardado en local */
+showLocal();
