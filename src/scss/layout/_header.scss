@@ -1,15 +1,50 @@
+// HEADER //
+
 .header {
     /* Position */
     display: flex;
     justify-content: center;
     padding: 50px; 
     /* Color */
-    background-color: $headMain;
-
+    background-color: $seaBlue;
+    
     &__headerTitle {
         /* Position */
         text-align: center;
+        /* Color */
+        color: $electricPink;
         /* Font */
         font-family: $title;
+        /* Medias */
+        @media all and (min-width: 1200px) {
+            font-size: 40px;
+        }
+    }
+
+    &__cocktail {
+        /* Measures */
+        height: 140px;
+    }
+}
+
+// H1 + IMG DIV //
+
+.divHeader {
+    /* Position */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px 0;
+    /* Measures */
+    width: 80vw;
+    /* Color */
+    border: 3px double $electricPink;
+    /* Medias */
+    @media all and (min-width: 768px) {
+        flex-direction: row;
+        justify-content: center;
+    }
+    @media all and (min-width: 1200px) {
+        justify-content: space-evenly;
     }
 }

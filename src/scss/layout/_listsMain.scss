@@ -1,35 +1,51 @@
 // JS CLASS TO FAV COCKTAILS //
 
 .favorites {
-    border: 5px dotted #fa8072; 
+    /* Measures */
     background-color: #e7d5ba;
+    /* Colors */
+    border: 5px dotted #fa8072; 
     color: #fa8072;
+    /* Font */
     font-family: Verdana, sans-serif;
-    width: 10%;
 }
 
 // SECTION LISTS //
 
 .listsMain {
+    /* Position */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-
-    &__listDrinks {
-        padding-top: 20px;
-    }
-
-    &__favDrinks {
-        padding-top: 20px;
-    }
 }
 
-// UL //
+// FAV LIST //
 
-.ulLists {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 80px; 
-    width: 50%;
-    list-style: none;
+.ulFav {
+    /* Position */
+    padding-top: 20px;
+
+    &__favDrinks {
+        /* Styles */
+        list-style: none;
+}
+}
+
+// DRINKS LIST //
+
+.ulDrinks {
+    /* Position */
+    padding-top: 20px; 
+    width: 60%;
+
+    &__listDrinks {
+        /* Position */
+        display: flex;
+        flex-wrap: wrap;
+        overflow-y: scroll;
+        height: 60%;
+        gap: 30px; 
+        /* Styles */  
+        list-style: none;
+}
 }
