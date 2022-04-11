@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Babylonica&family=Barlow+Semi+Condensed:wght@200&family=Oswald&family=Shadows+Into+Light&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <title>Módulo 2 - Evaluación final</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="divHeader">
+        <h1 class="header__headerTitle">Buscador de cócteles</h1>
+        <img
+          class="header__cocktail"
+          src="./assets/images/cocktail.png"
+          alt="Cócktail"
+        />
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <!-- SEARCH MAIN -->
+      <section class="searchMain">
+        <input
+          class="searchMain__inputSearch js_searchInput"
+          name="input"
+          id="input"
+          value=""
+          type="text"
+          placeholder="Buscar un cóctel"
+        />
+        <input
+          class="searchMain__input js_search"
+          name="search"
+          id="search"
+          type="submit"
+          value="Buscar"
+        />
+        <input
+          class="searchMain__input js_searchReset"
+          name="reset"
+          id="reset"
+          value="Reset"
+          type="reset"
+        />
+      </section>
+
+      <!-- LISTS MAIN -->
+      <section class="listsMain">
+        <!-- Favorites list -->
+        <div class="ulFav">
+          <h2 class="ulFav__titleFav">Tus favoritos</h2>
+          <ul class="ulFav__favDrinks js_favCocktails"></ul>
+          <div class="divButton">
+            <button class="divButton__buttonFav js_buttonFav">
+              Borrar favoritos
+            </button>
+          </div>
+        </div>
+        <!-- Principal list -->
+        <div class="ulDrinks">
+          <h2 class="ulDrinks__titleDrinks js_textHidden">
+            ¡Empieza a buscar cócteles!
+          </h2>
+          <ul class="ulDrinks__listDrinks js_listCocktails"></ul>
+        </div>
+      </section>
+
+    </main>
+    <!-- JAVASCRIPT LINK -->
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>

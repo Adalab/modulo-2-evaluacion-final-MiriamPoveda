@@ -97,3 +97,23 @@
         list-style: none;
 }
 }
+
+// BOTÓN FAVORITOS //
+
+.divButton {
+    display: flex;
+    justify-content: center;
+
+    &__buttonFav {
+        font-family: $drinkFav;
+        font-weight: 600;
+        padding: 3px 5px 3px;
+        border-radius: 5px;
+        border: 3px ridge $style; 
+        background-color: transparent;
+    }
+
+    &__buttonFav:hover {
+        transform: scale(1.3);
+    }
+}

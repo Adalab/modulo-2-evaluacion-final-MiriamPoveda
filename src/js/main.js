@@ -14,6 +14,8 @@ const listCocktails = document.querySelector('.js_listCocktails');
 const favCocktails = document.querySelector('.js_favCocktails');
 /* Texto de la lista de cócteles */
 const textHidden = document.querySelector('.js_textHidden');
+/* Botón para borrar favoritos */
+const buttonFav = document.querySelector('.js_buttonFav');
 
 // VARIABLES //
 
@@ -76,6 +78,7 @@ function paintFavorites() {
     }
     /* Añado la classFav para que me la vincule según la condicional */
     html += `<li class="js_favLi ${classFav}" id=${fav.idDrink}>`;
+    html += `<button class="js_buttonX ${fav.idDrink}">X</button>`;
     html += `<h3 class="textFav">${fav.strDrink}</h3>`;
 
     /* Condicional para la imagen */
@@ -91,6 +94,8 @@ function paintFavorites() {
   }
   /* Pinto el resultado en la UL seleccionada */
   favCocktails.innerHTML = html;
+  /* Añado el evento click */
+  resetFav();
 }
 
 // IDENTIFICAR CADA LI //
@@ -151,8 +156,59 @@ function paintCocktails() {
 
 function resetSearch() {
   searchInput.value = '';
-  listCocktails.classList.add('hidden');
+  listCocktails.innerHTML = '';
   textHidden.classList.remove('hidden');
+}
+
+// RESET DE FAVORITOS INDIVIDUAL //
+
+function clickResetFav(event) {
+  /* Identifico a qué cóctel se está dando click */
+  const idDrinkSelected = event.currentTarget.id;
+  /* Busca el elemento en el listado */
+  const favFound = cocktailData.find((fav) => {
+    return fav.idDrink === idDrinkSelected;
+  });
+  /* Busca la posición del elemento en el listado */
+  const favFoundIndex = favData.findIndex((fav) => {
+    return fav.idDrink === idDrinkSelected;
+  });
+  /* Condicional para quitar de favoritos */
+  /* Si no encuentra el cóctel en favoritos me lo añade */
+  if (favFoundIndex !== -1) {
+    favData.splice(favFound);
+  }
+
+  /* Añado las funciones de las UL para que les aplique esta función */
+  paintCocktails();
+  paintFavorites();
+  addLocal();
+}
+
+/* No funciona como quiero, me quita todos individualmente pero prioriza el primero */
+
+function resetFav () {
+  /* Selecciono todos los BUTTON */
+  const resetX = document.querySelectorAll('.js_buttonX');
+  /* Recorro la lista y añado el evento click a cada BUTTON */
+  for (const itemX of resetX) {
+    itemX.addEventListener('click', clickResetFav);
+  }
+}
+
+/* A través del botón para borrar todos */
+function resetClickFav() {
+  favCocktails.innerHTML = '';
+  if (favData.length >= 1) {
+    localStorage.removeItem('favData');
+  }
+  const li = document.querySelectorAll('.js_favLi');
+  if (li.length > 0) {
+    for (let i = 0; i < li.length; i++) {
+      li[i].classList.remove('favorites');
+      li[i].classList.add('listsMain__list');
+    }
+  }
 }
 
 // TEXTO DE PINTAR LOS CÓCTELES //
@@ -175,7 +231,6 @@ function addLocal() {
 
 function showLocal() {
   const showFav = localStorage.getItem('favData');
-
   /* Condicional */
   /* Si no hay datos en LocalStorage no se hace nada */
   if (showFav !== null) {
@@ -222,6 +277,12 @@ function handleClickReset(event) {
   resetSearch();
 }
 
+/* Botón de FAVORITOS */
+function handleResetFav(event) {
+  event.preventDefault();
+  resetClickFav();
+}
+
 // EVENTS //
 
 /* Evento del BOTÓN de BUSCAR */
@@ -229,6 +290,9 @@ searchButton.addEventListener('click', handleClickSearch);
 
 /* Evento del BOTÓN de RESET */
 searchReset.addEventListener('click', handleClickReset);
+
+/* Evento del BOTÓN de FAVORITOS */
+buttonFav.addEventListener('click', handleResetFav);
 
 // AL ARRANCAR LA PÁGINA //
 
