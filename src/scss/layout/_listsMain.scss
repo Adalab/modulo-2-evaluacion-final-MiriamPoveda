@@ -1,13 +1,10 @@
 // JS CLASS TO FAV COCKTAILS //
 
 .favorites {
-    /* Measures */
     border-radius: 20px;
     text-align: center;
-    /* Colors */
     border: 3px dotted $border; 
     color: $style;
-    /* Font */
     font-family: $drinkFav;
     font-size: 20px;
 }
@@ -16,10 +13,9 @@
     background-color: $select;
 }
 
-// SECTION LISTS //
+// SECTION LISTS + LIST (BOTH) + IMG (LI)//
 
 .listsMain {
-    /* Position */
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
@@ -29,7 +25,7 @@
         text-align: center;
         font-family: $drinkTitle;
         font-size: 20px;
-        color: white;
+        color: $base;
     }
     
     &__list:hover {
@@ -43,15 +39,14 @@
     }
 }
 
-// FAV LIST //
+// FAV LIST + TITLE + DRINKS FAV (+ MEDIAS)//
 
 .ulFav {
-    /* Position */
     width: 40vw;
     height: 80vh;
     padding: 20px 0;
     overflow-y: scroll;
-    background-color:rgba(255, 255, 255, 0.555);
+    background-color: $fav;
 
     &__titleFav {
         font-family: $drinkFav;
@@ -59,7 +54,6 @@
     }
 
     &__favDrinks {
-        /* Styles */
         list-style: none;
         padding: 10px;
 
@@ -72,10 +66,9 @@
 }
 }
 
-// DRINKS LIST //
+// DRINKS LIST + TITLE + DRINKS //
 
 .ulDrinks {
-    /* Position */
     padding: 20px; 
     border: 3px ridge rgba(255, 255, 255, 0.555);
     width: 60vw;
@@ -88,7 +81,6 @@
     }
 
     &__listDrinks {
-        /* Position */
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -98,7 +90,7 @@
 }
 }
 
-// BOTÓN FAVORITOS //
+// DIV BUTTON + FAV BUTTON (RESET) //
 
 .divButton {
     display: flex;
@@ -111,6 +103,7 @@
         border-radius: 5px;
         border: 3px ridge $style; 
         background-color: transparent;
+        font-size: 16px;
     }
 
     &__buttonFav:hover {

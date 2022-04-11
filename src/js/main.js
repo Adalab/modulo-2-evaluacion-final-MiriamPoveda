@@ -30,6 +30,15 @@ let classNormal = '';
 
 // FUNCTIONS //
 
+// TASK 2: SEARCH //
+/* Lines 123 (paintCocktails) + 257 (getApi) */
+// TASK 3: FAVORITES //
+/* Lines 44 (ClickFav) + 70 (paintFavorites) + 112 (selectCocktails) */
+// TASK 4: LOCALSTORAGE //
+/* Lines 232 (addLocal) + 241 (showLocal) */
+// TASK BONUS 1: RESET //
+/* Lines 166 (resetSearch) + 174 (clickResetFav) + 199 (resetFav) + 209 (resetClickFav) + 225 (hiddenText) */
+
 // MANDAR LOS CÓCTELES A LA PARTE DE FAVORITOS //
 
 function clickFav(event) {
@@ -174,7 +183,7 @@ function clickResetFav(event) {
     return fav.idDrink === idDrinkSelected;
   });
   /* Condicional para quitar de favoritos */
-  /* Si no encuentra el cóctel en favoritos me lo añade */
+  /* Si lo encuentra en favoritos me lo quita */
   if (favFoundIndex !== -1) {
     favData.splice(favFound);
   }
@@ -200,11 +209,11 @@ function resetFav () {
 function resetClickFav() {
   favCocktails.innerHTML = '';
   if (favData.length >= 1) {
-    localStorage.removeItem('favData');
+    localStorage.removeItem('favData'); /* Remuevo del LS lo guardado con el botón de borrar favoritos */
   }
-  const li = document.querySelectorAll('.js_favLi');
+  const li = document.querySelectorAll('.js_favLi'); /* Recorro la lista de los LI para remove/add clases */
   if (li.length > 0) {
-    for (let i = 0; i < li.length; i++) {
+    for (let i = 0; i < li.length; i++) { /* Uso de FOR clásico */
       li[i].classList.remove('favorites');
       li[i].classList.add('listsMain__list');
     }
@@ -280,6 +289,7 @@ function handleClickReset(event) {
 /* Botón de FAVORITOS */
 function handleResetFav(event) {
   event.preventDefault();
+  /* Vinculo la función al evento */
   resetClickFav();
 }
 
