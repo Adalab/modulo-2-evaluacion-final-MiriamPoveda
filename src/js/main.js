@@ -6,10 +6,14 @@
 const searchButton = document.querySelector('.js_search');
 /* INPUT donde la usuaria escribe */
 const searchInput = document.querySelector('.js_searchInput');
+/* INPUT para resetear la búsqueda */
+const searchReset = document.querySelector('.js_searchReset');
 /* UL de la lista principal */
 const listCocktails = document.querySelector('.js_listCocktails');
 /* UL de la lista de favoritos */
 const favCocktails = document.querySelector('.js_favCocktails');
+/* Texto de la lista de cócteles */
+const textHidden = document.querySelector('.js_textHidden');
 
 // VARIABLES //
 
@@ -19,6 +23,8 @@ let cocktailData = [];
 let favData = [];
 /* Para identificar la clase de CSS */
 let classFav = '';
+/* Eliminar la clase por defecto */
+let classNormal = '';
 
 // FUNCTIONS //
 
@@ -39,6 +45,8 @@ function clickFav(event) {
   /* Si no encuentra el cóctel en favoritos me lo añade */
   if (favFoundIndex === -1) {
     favData.push(favFound);
+  } else {
+    favData.splice(favFound, 1);
   }
   /* Añado las funciones de las UL para que les aplique esta función */
   paintCocktails();
@@ -46,7 +54,7 @@ function clickFav(event) {
   addLocal();
 }
 
-// PINTAR LOS CÓCTELES CLICKADOS COMO FAVORITOS EN HTML */
+// PINTAR LOS CÓCTELES CLICKADOS COMO FAVORITOS EN HTML //
 
 function paintFavorites() {
   /* Creo una variable vacía para rellenarla con los datos de la lista */
@@ -68,17 +76,16 @@ function paintFavorites() {
     }
     /* Añado la classFav para que me la vincule según la condicional */
     html += `<li class="js_favLi ${classFav}" id=${fav.idDrink}>`;
-    html += `<button>X</button>`;
-    html += `<h3>${fav.strDrink}</h3>`;
+    html += `<h3 class="textFav">${fav.strDrink}</h3>`;
 
     /* Condicional para la imagen */
     /* Imagen de relleno por si falla alguna */
     if (fav.strDrinkThumb === null) {
-      html += `<img src="https://img.freepik.com/vector-gratis/coctel-dibujo-mano-rodaja-limon-romero_218179-270.jpg?w=100" width="100"/>`;
+      html += `<img class="listsMain__img" src="https://img.freepik.com/vector-gratis/coctel-dibujo-mano-rodaja-limon-romero_218179-270.jpg?w=100" />`;
     }
     /* Imagen predefinida según la API */
     else {
-      html += `<img src="${fav.strDrinkThumb}" width="100"/>`;
+      html += `<img class="listsMain__img" src="${fav.strDrinkThumb}" width="100"/>`;
     }
     html += `</li>`;
   }
@@ -97,7 +104,7 @@ function selectCocktails () {
   }
 }
 
-// PINTAR LOS CÓCTELES BUSCADOS POR LA USUARIA EN EL HTML */
+// PINTAR LOS CÓCTELES BUSCADOS POR LA USUARIA EN EL HTML //
 
 function paintCocktails() {
   /* Creo una variable vacía para rellenarla con los datos de la lista */
@@ -112,23 +119,25 @@ function paintCocktails() {
     /* Si el cóctel está en favoritos añade la clase */
     if (favFoundIndex !== -1) {
       classFav = 'favorites';
+      classNormal = '';
     }
     /* Si no está en favoritos la quita */
     else {
       classFav = '';
+      classNormal = 'listsMain__list';
     }
     /* Añado la classFav para que me la vincule según la condicional */
-    html += `<li class="js_favLi ${classFav}" id=${drink.idDrink}>`;
+    html += `<li class="${classNormal} js_favLi ${classFav}" id=${drink.idDrink}>`;
     html += `<h3>${drink.strDrink}</h3>`;
 
     /* Condicional para la imagen */
     /* Imagen de relleno por si falla alguna */
     if (drink.strDrinkThumb === null) {
-      html += `<img src="https://img.freepik.com/vector-gratis/coctel-dibujo-mano-rodaja-limon-romero_218179-270.jpg?w=100" width="100"/>`;
+      html += `<img class="listsMain__img" src="https://img.freepik.com/vector-gratis/coctel-dibujo-mano-rodaja-limon-romero_218179-270.jpg?w=100"/>`;
     }
     /* Imagen predefinida según la API */
     else {
-      html += `<img src="${drink.strDrinkThumb}" width="100"/>`;
+      html += `<img class="listsMain__img" src="${drink.strDrinkThumb}" width="100"/>`;
     }
     html += `</li>`;
   }
@@ -136,6 +145,21 @@ function paintCocktails() {
   listCocktails.innerHTML = html;
   /* Lo añado para que vincule el evento click */
   selectCocktails();
+}
+
+// RESET DEL BUSCADOR //
+
+function resetSearch() {
+  searchInput.value = '';
+  listCocktails.classList.add('hidden');
+  textHidden.classList.remove('hidden');
+}
+
+// TEXTO DE PINTAR LOS CÓCTELES //
+
+function hiddenText() {
+  textHidden.classList.add('hidden');
+  listCocktails.classList.remove('hidden');
 }
 
 // ALMACENAMIENTO DE FAVORITOS EN LOCALSTORAGE //
@@ -164,9 +188,7 @@ function showLocal() {
   }
 }
 
-/* ¡PENDIENTE! */
-
-// COJO LOS DATOS DEL SERVIDOR PARA PODER UTILIZARLOS //
+// DATOS DEL SERVIDOR //
 
 function getApi() {
   /* Cojo el valor del input que rellena la usuaria */
@@ -182,18 +204,31 @@ function getApi() {
     });
 }
 
-// FUNCIÓN MANEJADORA DEL BOTÓN //
+// HANDLER FUNCTIONS //
 
+/* Botón de BUSCAR */
 function handleClickSearch(event) {
   event.preventDefault();
   /* Añado la función del FETCH para vincular la API al evento del BOTÓN */
   getApi();
+  /* Añado la función para ocultar el texto con el evento */
+  hiddenText();
+}
+
+/* Botón de RESET */
+function handleClickReset(event) {
+  event.preventDefault();
+  /* Vinculo la función al evento */
+  resetSearch();
 }
 
 // EVENTS //
 
 /* Evento del BOTÓN de BUSCAR */
 searchButton.addEventListener('click', handleClickSearch);
+
+/* Evento del BOTÓN de RESET */
+searchReset.addEventListener('click', handleClickReset);
 
 // AL ARRANCAR LA PÁGINA //
 

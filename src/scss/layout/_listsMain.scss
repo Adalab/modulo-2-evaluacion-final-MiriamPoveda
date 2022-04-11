@@ -2,12 +2,18 @@
 
 .favorites {
     /* Measures */
-    background-color: #e7d5ba;
+    border-radius: 20px;
+    text-align: center;
     /* Colors */
-    border: 5px dotted #fa8072; 
-    color: #fa8072;
+    border: 3px dotted $border; 
+    color: $style;
     /* Font */
-    font-family: Verdana, sans-serif;
+    font-family: $drinkFav;
+    font-size: 20px;
+}
+
+.favorites:hover {
+    background-color: $select;
 }
 
 // SECTION LISTS //
@@ -16,18 +22,53 @@
     /* Position */
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
+
+    &__list {
+        border-radius: 20px;
+        text-align: center;
+        font-family: $drinkTitle;
+        font-size: 20px;
+        color: white;
+    }
+    
+    &__list:hover {
+        border: 3px solid $border;
+    }
+
+    &__img {
+        width: 100px;
+        border-radius: 20px;
+        padding: 5px 5px 0;
+    }
 }
 
 // FAV LIST //
 
 .ulFav {
     /* Position */
-    padding-top: 20px;
+    width: 40vw;
+    height: 80vh;
+    padding: 20px 0;
+    overflow-y: scroll;
+    background-color:rgba(255, 255, 255, 0.555);
+
+    &__titleFav {
+        font-family: $drinkFav;
+        text-align: center;
+    }
 
     &__favDrinks {
         /* Styles */
         list-style: none;
+        padding: 10px;
+
+        @media all and (min-width: 768px) {
+            padding: 10px 20%;
+        }
+        @media all and (min-width: 1200px) {
+            padding: 10px 30%;
+        }
 }
 }
 
@@ -35,15 +76,22 @@
 
 .ulDrinks {
     /* Position */
-    padding-top: 20px; 
-    width: 60%;
+    padding: 20px; 
+    border: 3px ridge rgba(255, 255, 255, 0.555);
+    width: 60vw;
+    height: 80vh;
+    overflow-y: scroll;
+
+    &__titleDrinks {
+        text-align: center;
+        font-family: $drinkTitle;
+    }
 
     &__listDrinks {
         /* Position */
         display: flex;
         flex-wrap: wrap;
-        overflow-y: scroll;
-        height: 60%;
+        justify-content: center;
         gap: 30px; 
         /* Styles */  
         list-style: none;
