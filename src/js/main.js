@@ -17,6 +17,8 @@ const textHidden = document.querySelector('.js_textHidden');
 /* Botón para borrar favoritos */
 const buttonFav = document.querySelector('.js_buttonFav');
 
+const buttonLog = document.querySelector('.js_buttonLog');
+
 // VARIABLES //
 
 /* Para la lista de cócteles */
@@ -99,6 +101,12 @@ function paintFavorites() {
     else {
       html += `<img class="listsMain__img" src="${fav.strDrinkThumb}" width="100"/>`;
     }
+    html += `<h4>${fav.strIngredient1}</h4>`;
+    html += `<h4>${fav.strIngredient2}</h4>`;
+    html += `<${fav.strIngredient3}</h4>`;
+    if (fav.strIngredient4 !== null) {
+      html += `<h4>${fav.strIngredient4}</h4>`;
+    }
     html += `</li>`;
   }
   /* Pinto el resultado en la UL seleccionada */
@@ -152,6 +160,12 @@ function paintCocktails() {
     /* Imagen predefinida según la API */
     else {
       html += `<img class="listsMain__img" src="${drink.strDrinkThumb}" width="100"/>`;
+    }
+    html += `<h4>${drink.strIngredient1}</h4>`;
+    html += `<h4>${drink.strIngredient2}</h4>`;
+    html += `<h4>${drink.strIngredient3}</h4>`;
+    if (drink.strIngredient4 !== null) {
+      html += `<h4>${drink.strIngredient4}</h4>`;
     }
     html += `</li>`;
   }
@@ -293,6 +307,11 @@ function handleResetFav(event) {
   resetClickFav();
 }
 
+function handleClickLog() {
+  const favLog = favData.length;
+  console.log(`Tienes ${favLog} favoritos`);
+}
+
 // EVENTS //
 
 /* Evento del BOTÓN de BUSCAR */
@@ -303,6 +322,8 @@ searchReset.addEventListener('click', handleClickReset);
 
 /* Evento del BOTÓN de FAVORITOS */
 buttonFav.addEventListener('click', handleResetFav);
+
+buttonLog.addEventListener('click', handleClickLog);
 
 // AL ARRANCAR LA PÁGINA //
 
